@@ -21,7 +21,7 @@ import { platform } from "node:os";
 import type { cookies } from "next/headers";
 
 export const APP_SLUG = "berth";
-export const APP_VERSION = "0.1.0";
+export const APP_VERSION = "0.2.0";
 /** false: the app calls no model. It still signs in and counts users; it skips the plan screen. */
 export const USES_AI = true;
 const ORIGIN = process.env.PUBLIK_ORIGIN || "https://publikhq.com"; // PUBLIK_ORIGIN: tests only
@@ -46,7 +46,9 @@ export type Provider = { kind: "own" | "publik"; baseURL: string; apiKey: string
 export type GateStatus =
   | { state: "needs_install" }
   | { state: "unreachable" | "sign_in" | "choose"; screen: GateScreen; claimUrl: string | null; topUpUrl: string | null; notes: typeof GATE_NOTES; pollMs: number; pollLimitMs: number }
-  | { state: "ready"; choice: Choice | null; usesAi: boolean; handle: string | null; telemetrySeconds: number };
+  | { state: "ready"; choice: Choice | null; usesAi: boolean; handle: string | null; telemetrySeconds: number }
+  /** No listing yet (publik's weekly submission limit): the app is open without sign-in, AI on the person's own key. */
+  | { state: "pending"; until: string | null; usesAi: boolean };
 
 /** Next's cookie store: `await cookies()` inside a route handler (where it can also set cookies). */
 type Jar = Awaited<ReturnType<typeof cookies>>;
@@ -64,6 +66,18 @@ function appToken(): string {
   } catch { return ""; }
 }
 export const available = () => appToken().startsWith("pat_");
+/** Pending listing (Vedant, 2026-11-12: "no sign-in till then"): with no app token and a committed
+ *  publik-pending.txt (its first line: the date the listing can be made) or PUBLIK_PENDING, the gate lets
+ *  everyone in. Delete the file once the listing and app token exist; the normal gate comes back. */
+export function pendingUntil(): string | null {
+  if (available()) return null;
+  const env = process.env.PUBLIK_PENDING?.trim();
+  if (env) return env;
+  try {
+    const file = join(process.cwd(), "publik-pending.txt");
+    return existsSync(file) ? (readFileSync(file, "utf8").split("\n")[0].trim() || "soon") : null;
+  } catch { return null; }
+}
 const NO_TOKEN = "This build has no publik app token. Ask the developer for a new build.";
 
 /** PUBLIK_COOKIE_SECRET, else a hash of the app token. Set the secret on any public deployment. */
@@ -217,7 +231,11 @@ async function screenFor(jar: Jar, c: PublikCredential): Promise<GateStatus | "r
 /** One step of the gate for this browser. GET /api/publik/status passes provision:false (read only);
  *  POST /api/publik/provision passes true and creates this browser's install when it has none. */
 export async function gateStatus(jar: Jar, req: Request, opts: { provision: boolean }): Promise<GateStatus> {
-  if (!available() && !devKey()) return show("unreachable", gateScreen("unreachable", null, null, NO_TOKEN));
+  if (!available() && !devKey()) {
+    const until = pendingUntil();
+    if (until) return { state: "pending", until, usesAi: USES_AI };
+    return show("unreachable", gateScreen("unreachable", null, null, NO_TOKEN));
+  }
   const ua = req.headers.get("user-agent") ?? "";
   const prior = readCredential(jar);
   if (prior) {

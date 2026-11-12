@@ -1,0 +1,11 @@
+{
+ "page": null,
+ "url": "http://localhost:3100/",
+ "root": null,
+ "kind": "software",
+ "category": "phone chat for the AI models on your Mac",
+ "primary": "Copy the command",
+ "rounds": 3,
+ "start": "2026-11-12T10:11:40.510Z",
+ "by": "gate.mjs --start"
+}

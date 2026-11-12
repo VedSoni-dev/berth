@@ -1,0 +1,359 @@
+{
+ "start": "2026-11-12T10:11:40.510Z",
+ "round": 3,
+ "idle": 0,
+ "errors": 0,
+ "status": "open",
+ "history": [
+  {
+   "at": "2026-11-12T16:29:23.233Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 35,
+   "round": 1,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-12T16:36:37.985Z",
+   "mode": "manual",
+   "status": "fail",
+   "fails": 4,
+   "round": 2,
+   "reused": false,
+   "stopHookActive": false
+  },
+  {
+   "at": "2026-11-12T16:41:20.031Z",
+   "mode": "manual",
+   "status": "open",
+   "fails": 2,
+   "round": 3,
+   "reused": false,
+   "stopHookActive": false
+  }
+ ],
+ "max": 3,
+ "marker": {
+  "page": null,
+  "url": "http://localhost:3100/",
+  "root": null,
+  "kind": "software",
+  "category": "phone chat for the AI models on your Mac",
+  "primary": "Copy the command",
+  "rounds": 3,
+  "start": "2026-11-12T10:11:40.510Z",
+  "by": "gate.mjs --start"
+ },
+ "manual": true,
+ "roundKey": "5fe7688162f4c171:da39a3ee",
+ "roundFree": false,
+ "idleFree": false,
+ "blockKey": null,
+ "fp": "5fe7688162f4c171",
+ "page": "http://localhost:3100/",
+ "found": {
+  "fails": [
+   {
+    "check": "neighbour",
+    "where": "#how section.section \"Set up berth in 3 stepsRun one c\"",
+    "msg": "framed, 81px of #dashboard section.section \"The dashboard runs a model in a \" shows",
+    "fix": "keep the next section's heading and picture out of this screen",
+    "widths": [
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "neighbour"
+    ],
+    "wheres": [
+     "#how section.section \"Set up berth in 3 stepsRun one c\""
+    ]
+   },
+   {
+    "check": "neighbour",
+    "where": "#questions section.section.bg-band \"QuestionsWhat berth needs, what \"",
+    "msg": "framed, 384px of the footer shows",
+    "fix": "keep the next section's heading and picture out of this screen",
+    "widths": [
+     390
+    ],
+    "from": "layout",
+    "ids": [
+     "neighbour"
+    ],
+    "wheres": [
+     "#questions section.section.bg-band \"QuestionsWhat berth needs, what \""
+    ]
+   }
+  ],
+  "warns": [
+   {
+    "check": "cut-text",
+    "where": "div.bp-screen > div.bp-app > div.bp-msgs > div.bp-msg.bp-msg--user \"Where are you running right now?\"",
+    "msg": "cut 11px at the top by the overflow of section#how > div.wrap.mo-pc__grid > div.mo-pc__visuals.frame: a fragment run out through its panel's edge (inside a held section or scroll scene, whose motion --quick does not check)",
+    "fix": "give the text room: no overflow clipping a line, no line past its box",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "scroll-reveal",
+    "where": "section#how \"Set up berth in 3 steps Run one command \"",
+    "msg": "starts \"border-left-color\" (0.3 s) the moment it is scrolled into view (an IntersectionObserver) on li.mo-pc__step:nth-of-type(1) (inside a dealt moment's section, [data-moment]: an enter moment is expected on every kind; its still is judged under reduced motion)",
+    "fix": "show it at rest: no fade, rise or unmask when it is scrolled into view",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "pinned",
+    "where": "section#how > div.wrap.mo-pc__grid \"Set up berth in 3 steps Run one command \"",
+    "msg": "held on screen for 1 screen of scroll (position: sticky) while the page moves on (inside a dealt moment's section, [data-moment]: expected on every kind, two moments at most, house rule; its still is judged under reduced motion)",
+    "fix": "let the section scroll with the page",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "no-visual",
+    "where": "section#dashboard \"The dashboard runs a model in a tab\"",
+    "msg": "pictures, effects and mocks cover 17% of this section; a feature section needs a visual (about 25% or more)",
+    "fix": "give the section a visual: a UI fragment on a ground, real icons, or a photograph that fits",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "same-action",
+    "where": "div.grid.grid--top > div.span-5.stack-5 > p:nth-of-type(2) > a.link \"Open the dashboard\"",
+    "msg": "\"Open the dashboard\" is a button in one place and a text link in another: one action in two looks",
+    "fix": "show one action one way: the same button wherever it repeats, or a text link everywhere",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "cta",
+    "where": "section#phone \"What the phone app does. Your Mac serves\"",
+    "msg": "a section over 1.5 screens long with no link or button in it",
+    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "cta",
+    "where": "section#how \"Set up berth in 3 steps\"",
+    "msg": "a section over 1.5 screens long with no link or button in it",
+    "fix": "add the action: a button in the hero, one on every priced item, one in the closing section",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-headline",
+    "where": "h1#hero-h \"Your phone chats with AI models on your \"",
+    "msg": "the h1 has 9 words (2 to 8 read at a glance)",
+    "fix": "put the category noun in the h1 (and who it is for, or where), in 2 to 8 words",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "busy-ground",
+    "where": "div.grid.grid--top > div.span-5.stack-5 > div.lp-pitch > p \"berth is free on publik, a free software\"",
+    "msg": "text over a detailed part of a picture (its ground changes by 1.5 L* from one pixel to the next under the words) (and 14 more like it: \"Make a free publik accou\", \"berth is coming to publi\", \"Tailscale, for your phon\", \"berth has no relay of it\", ...)",
+    "fix": "move the text to a calm part of the picture, or put it on a panel",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "main#top > section.hero.hero--split / section#phone",
+    "msg": "192px between these sections, -35% against the median 295px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440,
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "section-gaps",
+    "where": "section#phone / section#how",
+    "msg": "378px between these sections, +28% against the median 295px",
+    "fix": "use one gap between sections (all within 25% of each other)",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-labels",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > a.nav__logo \"berth\"",
+    "msg": "\"berth\" opens a section headed \"Your phone chats with AI models on your Mac\"",
+    "fix": "name each nav link after the heading of the section it opens",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "copy-length",
+    "where": "section#questions \"Questions\"",
+    "msg": "1 section over 90 words a screen outside the UI mocks (\"Questions\" 210); 78 words a screen across the page (543 words in 7 screens): a tech page says it in about 80 or fewer",
+    "fix": "cut every section to its heading, one line and the product UI: the UI says the rest; no second paragraph, no list of feature sentences",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav-current",
+    "where": "header.nav.nav--centre",
+    "msg": "the nav stays on screen with 4 links to the page's sections, but never marks the one you are in (no link changes as the page scrolls)",
+    "fix": "mark the link of the section on screen (a colour, a weight or a line under it) as the visitor scrolls",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "action-repeat",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > div.nav__actions > button.btn.btn--primary \"copy the command\"",
+    "msg": "\"copy the command\" shows 2 times on the first screen at 1440px (nav, hero): the nav's button and the hero's; nothing else on the screen may repeat it",
+    "fix": "show the action once a screen besides the nav's button: the hero's, the close's or the phone bar's, never all at once",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "container-edges",
+    "where": "div.wrap.mo-pc__grid > div.mo-pc__text > ol.mo-pc__steps > li.mo-pc__step:nth-of-type(1) \"Run one command on your MacPaste it into\"",
+    "msg": "3 text blocks start on a left line at x 106, 26px from the container's left: text starts on the container's left, or on one split line (x 623, 732, 841) (also \"Scan the QR code with your phone\", \"Ask the model on your MacType a \") (it is in a scroll scene: told as a WARN) (SR-6)",
+    "fix": "start the text on the container's left, or on the one split line every split shares",
+    "widths": [
+     1440
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "nav",
+    "where": "header.nav.nav--centre > div.wrap.nav__bar > button.nav__toggle",
+    "msg": "the nav is lopsided: its last item ends 13px inside the content's edge (366px), while its first starts on the other edge",
+    "fix": "start the nav's first item and end its last on the content's two edges",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "cut-text",
+    "where": "div.bp-msgs > div.bp-msg.bp-msg--bot > div.bp-txt > p:nth-of-type(1) \"On Mac mini. Your phone sent this questi\"",
+    "msg": "cut 5px at the bottom by the overflow of section.hero.hero--split > div.wrap > div.hero-text.grid > div.hero__media.frame: a fragment run out through its panel's edge",
+    "fix": "give the text room: no overflow clipping a line, no line past its box",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "cut-text",
+    "where": "figure.mo-pc__visual.mo-pc__visual--lit > div.bt-term.ui > div.bt-term__body > span:nth-of-type(3) \"berth is serving Mac mini to your phone \"",
+    "msg": "cut 15px at the top by the overflow of div.mo-pc__text > ol.mo-pc__steps > li.mo-pc__step:nth-of-type(1) > figure.mo-pc__visual.mo-pc__visual--lit: a fragment run out through its panel's edge (inside a held section or scroll scene, whose motion --quick does not check) (and 2 more like it: \"berth\", \"Mac mini\")",
+    "fix": "give the text room: no overflow clipping a line, no line past its box",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "ui-fit",
+    "where": "ol.mo-pc__steps > li.mo-pc__step:nth-of-type(2) > figure.mo-pc__visual.mo-pc__visual--lit > div.bp-device.ui \"running on Mac mini connected Your phone\"",
+    "msg": "the fragment is 338px wide in a 316px slot (figure.mo-pc__visual.mo-pc__visual--lit) (inside a held section or scroll scene, whose motion --quick does not check)",
+    "fix": "give the fragment the width it needs (its meta.json size), or use a smaller fragment",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "ui-fit",
+    "where": "ol.mo-pc__steps > li.mo-pc__step:nth-of-type(3) > figure.mo-pc__visual.mo-pc__visual--lit > div.bp-device.ui \"running on Mac mini connected Where are \"",
+    "msg": "the fragment is 338px wide in a 316px slot (figure.mo-pc__visual.mo-pc__visual--lit) (inside a held section or scroll scene, whose motion --quick does not check)",
+    "fix": "give the fragment the width it needs (its meta.json size), or use a smaller fragment",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   },
+   {
+    "check": "busy-ground",
+    "where": "div.wrap > div.grid.grid--top > div.span-5.stack-5 > p.t-lead.muted \"What berth needs, what it can't do yet, \"",
+    "msg": "text over a detailed part of a picture (its ground changes by 1.6 L* from one pixel to the next under the words) (and 16 more like it: \"berth is free on publik,\", \"publik\", \"Make a free publik accou\", \"berth is coming to publi\", ...)",
+    "fix": "move the text to a calm part of the picture, or put it on a panel",
+    "widths": [
+     390
+    ],
+    "from": "consistency"
+   }
+  ],
+  "crashed": [],
+  "seconds": {
+   "consistency": 114,
+   "layout": 4
+  }
+ },
+ "open": [
+  {
+   "check": "neighbour",
+   "where": "#how section.section \"Set up berth in 3 stepsRun one c\"",
+   "msg": "framed, 81px of #dashboard section.section \"The dashboard runs a model in a \" shows",
+   "fix": "keep the next section's heading and picture out of this screen",
+   "widths": [
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "neighbour"
+   ],
+   "wheres": [
+    "#how section.section \"Set up berth in 3 stepsRun one c\""
+   ]
+  },
+  {
+   "check": "neighbour",
+   "where": "#questions section.section.bg-band \"QuestionsWhat berth needs, what \"",
+   "msg": "framed, 384px of the footer shows",
+   "fix": "keep the next section's heading and picture out of this screen",
+   "widths": [
+    390
+   ],
+   "from": "layout",
+   "ids": [
+    "neighbour"
+   ],
+   "wheres": [
+    "#questions section.section.bg-band \"QuestionsWhat berth needs, what \""
+   ]
+  }
+ ],
+ "waived": [],
+ "warnCount": 22,
+ "at": "2026-11-12T16:41:20.031Z",
+ "openTold": true
+}

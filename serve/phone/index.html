@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>berth · {{MAC}}</title>
+<meta name="description" content="Chat with the models running on {{MAC}}.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f4f5f2">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d1210">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="berth">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="/manifest.webmanifest?t={{TOKEN}}">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/phone.css">
+</head>
+<body>
+<div class="app" id="app" data-mac="{{MAC}}">
+  <header class="top">
+    <div class="mac">
+      <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="3.2" fill="currentColor"/><path d="M12 3v5.6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <div class="mac-t">
+        <span class="mac-k">running on</span>
+        <span class="mac-n">{{MAC}}</span>
+      </div>
+    </div>
+    <span class="conn" id="conn"><i class="dot"></i><span id="connText">connecting</span></span>
+    <button class="icon" id="newChat" aria-label="New chat" title="New chat">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+    </button>
+  </header>
+
+  <main class="msgs" id="msgs" aria-live="polite"></main>
+
+  <footer class="dock">
+    <div class="dock-row">
+      <button class="model" id="modelBtn" aria-haspopup="dialog">
+        <span class="model-v" id="modelName">loading models</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <span class="speed" id="speed"></span>
+      <button class="icon small" id="infoBtn" aria-label="How this works" title="How this works">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg>
+      </button>
+    </div>
+    <form class="ask" id="ask">
+      <textarea id="input" rows="1" placeholder="Ask your Mac anything" enterkeyhint="send" autocomplete="off" aria-label="Message"></textarea>
+      <button class="send" id="send" aria-label="Send" disabled>
+        <svg class="i-send" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+        <svg class="i-stop" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2.5" fill="currentColor"/></svg>
+      </button>
+    </form>
+  </footer>
+</div>
+
+<dialog class="sheet" id="modelSheet" aria-label="Models on {{MAC}}">
+  <div class="grab" aria-hidden="true"></div>
+  <h2>Models on {{MAC}}</h2>
+  <ul class="models" id="models"></ul>
+  <p class="hint">Add one on the Mac: <code>ollama pull qwen2.5:7b</code>. It shows up here.</p>
+  <form method="dialog"><button class="done">Done</button></form>
+</dialog>
+
+<dialog class="sheet" id="infoSheet" aria-label="How berth works">
+  <div class="grab" aria-hidden="true"></div>
+  <h2>Your Mac is the engine</h2>
+  <p>The model runs on <b>{{MAC}}</b>. This phone sends your message over your Wi-Fi and shows the answer as the Mac writes it. Nothing goes through a cloud, or through us.</p>
+  <h3>Put it on your Home Screen</h3>
+  <p>iPhone: Share, then Add to Home Screen. Android: the ⋮ menu, then Add to Home screen.</p>
+  <h3>Away from home</h3>
+  <p>berth has no relay of its own. Install <a href="https://tailscale.com/download" target="_blank" rel="noopener noreferrer">Tailscale</a> on the Mac and on this phone, sign both in to the same account, and open the Mac's Tailscale address with <code>:7770</code> and the same code (<code>berth serve</code> prints it). The two devices connect directly; the Mac has to be awake.</p>
+  <h3>More models, or unpair</h3>
+  <p>On the Mac: <code>ollama pull &lt;model&gt;</code> adds a model. <code>berth serve --new-token</code> unpairs every phone.</p>
+  <p class="foot">berth v{{VERSION}} · free &amp; open source · <a href="https://github.com/VedSoni-dev/berth" target="_blank" rel="noopener noreferrer">github.com/VedSoni-dev/berth</a></p>
+  <form method="dialog"><button class="done">Done</button></form>
+</dialog>
+
+<script src="/phone.js"></script>
+</body>
+</html>

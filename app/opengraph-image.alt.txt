@@ -1,1 +1,1 @@
-berth: a private AI server on your own machine. Pick an open-weight model, press play, chat with it on your GPU.
+berth: your phone chats with the AI models on your Mac. The phone app answering from Mac mini in front of the berth dashboard showing the phone paired.

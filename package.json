@@ -1,21 +1,33 @@
 {
   "name": "berth",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Run an open-weight model on your own machine from a browser tab, or get a local OpenAI-compatible endpoint through Ollama. A free, open-source alternative to Apple's unreleased local AI server.",
+  "description": "Your phone chats with the open-weight models on your Mac: one command serves Ollama to your phone over Wi-Fi, with a pairing QR code. Plus a dashboard to run models in a tab or through Ollama. Free and open source.",
   "license": "MIT",
+  "bin": {
+    "berth": "bin/berth.mjs"
+  },
+  "files": [
+    "bin/",
+    "serve/",
+    "LICENSE",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "serve": "node bin/berth.mjs serve"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@mlc-ai/web-llm": "0.2.88",
     "next": "16.4.6",
     "react": "19.3.1",
-    "react-dom": "19.3.1"
-  },
-  "devDependencies": {
+    "react-dom": "19.3.1",
     "@tailwindcss/postcss": "^4.3.5",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",

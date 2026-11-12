@@ -35,6 +35,7 @@ import {
   type OllamaStatus,
   type Stats,
 } from "@/lib/local";
+import { SERVE_CMD, ago, berthStatus, type BerthStatus } from "@/lib/phone";
 
 /* ---------------- saved settings (this browser only) ---------------- */
 
@@ -126,6 +127,23 @@ export function Console() {
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(t);
+  }, []);
+
+  // berth serve on this Mac (the phone side): undefined while checking, null when it isn't running
+  const [phone, setPhone] = useState<BerthStatus | null | undefined>(undefined);
+  useEffect(() => {
+    let live = true;
+    const check = async () => {
+      if (document.hidden) return;
+      const st = await berthStatus();
+      if (live) setPhone(st);
+    };
+    void check();
+    const t = setInterval(() => void check(), 4000);
+    return () => {
+      live = false;
+      clearInterval(t);
+    };
   }, []);
 
   const host = s.hosts.find((h) => h.id === s.host) ?? s.hosts[0];
@@ -450,6 +468,10 @@ export function Console() {
                 </div>
               );
             })}
+            <div className="node-wrap">
+              <div className="edge" aria-hidden />
+              <PhoneNode st={phone} copy={copy} />
+            </div>
             <button className="add-node" onClick={() => setAddHost(true)}>
               + add a machine
               <small>another computer running Ollama on your network</small>
@@ -585,6 +607,8 @@ export function Console() {
             <div className="msgs" ref={scroller}>
               {s.turns.length === 0 && (
                 <HowTo
+                  phone={phone}
+                  copy={copy}
                   engine={s.engine}
                   status={status}
                   modelLabel={modelLabel}
@@ -732,9 +756,81 @@ export function Console() {
   );
 }
 
+/* ---------------- your phone (berth serve) ---------------- */
+
+function PhoneNode({ st, copy }: { st: BerthStatus | null | undefined; copy: (t: string, what?: string) => void }) {
+  const paired = !!st?.paired;
+  const p = st?.phones[0];
+  return (
+    <article className={`node phone-node ${paired ? "sel" : ""}`} aria-label="Use it from your phone">
+      <header>
+        <span className={`dot ${paired ? "on" : ""}`} />
+        <b>Your phone</b>
+        <span className={`live-tag ${paired ? "" : "off"}`}>{st === undefined ? "checking" : !st ? "not running" : paired ? "paired" : "not paired"}</span>
+      </header>
+      {st === undefined && <p className="muted small">Looking for berth serve on this Mac…</p>}
+      {st === null && (
+        <>
+          <h4>Use it from your phone</h4>
+          <p className="small">Chat on your phone with the models Ollama runs on this Mac. Run this in Terminal:</p>
+          <div className="cmd">
+            <code>{SERVE_CMD}</code>
+            <button className="link" onClick={() => copy(SERVE_CMD, "Command copied")}>
+              copy
+            </button>
+          </div>
+          <ul className="phone-why">
+            <li>Serves a phone app over your Wi-Fi and prints a QR code to scan</li>
+            <li>Your phone sends the question; this Mac runs the model</li>
+            <li>A pairing code guards it; nothing goes through our servers</li>
+          </ul>
+        </>
+      )}
+      {st && (
+        <>
+          <dl>
+            {paired && p ? (
+              <>
+                <dt>phone</dt>
+                <dd>
+                  {p.kind} · seen {ago(p.lastSeenAgo)}
+                </dd>
+                <dt>answers</dt>
+                <dd>
+                  {st.answers} · {st.tokens.toLocaleString()} tokens from this Mac
+                </dd>
+              </>
+            ) : (
+              <>
+                <dt>phone</dt>
+                <dd>not paired yet</dd>
+              </>
+            )}
+            <dt>serving</dt>
+            <dd>{st.address}</dd>
+            <dt>models</dt>
+            <dd>{st.upstream.ok ? `${st.upstream.label} · ${st.upstream.models} model${st.upstream.models === 1 ? "" : "s"}` : "Ollama isn't running"}</dd>
+          </dl>
+          <p className="node-run">
+            {paired ? (
+              <>
+                <span className="dot on" /> {st.mac} is answering your phone
+              </>
+            ) : (
+              <span className="muted">Scan the QR code in your terminal with your phone&apos;s camera.</span>
+            )}
+          </p>
+        </>
+      )}
+    </article>
+  );
+}
+
 /* ---------------- the inline how-to (empty chat) ---------------- */
 
 function HowTo(p: {
+  phone: BerthStatus | null | undefined;
+  copy: (t: string, what?: string) => void;
   engine: Engine;
   status: Status;
   modelLabel: string;
@@ -748,6 +844,20 @@ function HowTo(p: {
   return (
     <div className="howto">
       <ol>
+        <li className={p.phone?.paired ? "done" : ""}>
+          <b>Use it from your phone.</b> Run <code>{SERVE_CMD}</code>{" "}
+          <button className="link" onClick={() => p.copy(SERVE_CMD, "Command copied")}>
+            copy
+          </button>{" "}
+          in Terminal on your Mac and scan the QR code it prints. Your phone chats; the Mac runs the model through Ollama.{" "}
+          {p.phone ? (
+            p.phone.paired ? (
+              <em className="ok-note">Paired: {p.phone.phones[0]?.kind ?? "a phone"} is using {p.phone.mac}.</em>
+            ) : (
+              <em className="ok-note">berth is serving {p.phone.mac}; scan the QR code in your terminal.</em>
+            )
+          ) : null}
+        </li>
         <li className={running ? "done" : ""}>
           <b>Load {p.modelLabel}.</b>{" "}
           {p.engine === "tab" ? (
@@ -1095,6 +1205,9 @@ function Onboarding(p: {
           <>
             <h2>This is your machine.</h2>
             <p className="muted">berth runs open-weight models here, on your own hardware. Your prompts and answers don&apos;t leave it.</p>
+            <p className="muted small">
+              On a Mac with Ollama? Run <code>{SERVE_CMD}</code> and chat with its models from your phone. The dashboard shows when a phone is paired.
+            </p>
             <div className="node sel onb-node">
               <header>
                 <span className="dot" />

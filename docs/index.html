@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>berth: a private AI server in a browser tab</title>
-<meta name="description" content="Pick an open-weight model, press play, and chat with it on your own GPU from a tab, or connect Ollama for a local OpenAI-compatible endpoint. Free and open source.">
-<meta property="og:title" content="berth: a private AI server in a browser tab">
-<meta property="og:description" content="Open models on your own machine, no waitlist and no install. Free and open source.">
+<title>berth: your phone chats with the AI models on your Mac</title>
+<meta name="description" content="One command on your Mac serves its Ollama models to your phone over Wi-Fi, with a QR code to pair. The phone is the screen, the Mac runs the model. Free and open source.">
+<meta property="og:title" content="berth: your phone chats with the AI models on your Mac">
+<meta property="og:description" content="One command on the Mac, scan a QR code, chat on your phone. Free and open source.">
 <meta property="og:image" content="https://vedsoni-dev.github.io/berth/poster.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://vedsoni-dev.github.io/berth/poster.png">
@@ -53,56 +53,64 @@
     <a class="by" href="https://x.com/forkthis_ai"><img src="forkthis.svg" alt="">built by @forkthis_ai</a>
   </header>
 
-  <h1>your own AI<br>server, in a <em>tab.</em></h1>
-  <p class="lede">Pick an open-weight model, press play, and it runs on your own GPU from a browser tab: nothing to install, nothing leaves your machine. Or connect Ollama and get a real local OpenAI-compatible endpoint. Free and open source.</p>
+  <h1>your phone can't run<br>big models. <em>your mac can.</em></h1>
+  <p class="lede">Run one command on your Mac (a Mac mini is perfect). It serves its Ollama models over your Wi-Fi and prints a QR code. Scan it, and your phone gets a chat app that streams answers from the Mac. The phone is the screen, the Mac runs the model. Free and open source.</p>
+  <pre>npx github:VedSoni-dev/berth serve</pre>
   <div class="ctas">
-    <a class="btn primary" href="https://publikhq.com">Find it on publik</a>
-    <a class="btn" href="https://berth-delta.vercel.app">Try it live</a>
+    <a class="btn primary" href="https://berth-delta.vercel.app">See the site</a>
+    <a class="btn" href="https://berth-delta.vercel.app/app">Open the dashboard</a>
     <a class="btn" href="https://github.com/VedSoni-dev/berth">View on GitHub</a>
   </div>
 
   <div class="film"><video src="berth.mp4" poster="poster.png" controls playsinline muted autoplay loop preload="metadata"></video></div>
 
   <div class="receipts">
-    <div><b>23</b><span>minutes to build</span></div>
-    <div><b>2,826</b><span>lines of code</span></div>
-    <div><b>$0</b><span>per month</span></div>
+    <div><b>1</b><span>command on the Mac</span></div>
+    <div><b>0</b><span>dependencies, accounts or clouds</span></div>
+    <div><b>2,588</b><span>lines of code in v0.2</span></div>
     <div><b>MIT</b><span>open source</span></div>
   </div>
 
   <section>
+    <h2>How it works</h2>
+    <div class="grid">
+      <div class="card"><b>1. Run it on the Mac</b><p>Install Ollama, pull a model (<code>ollama pull llama3.2</code>), then run <code>npx github:VedSoni-dev/berth serve</code> in Terminal. It prints a QR code.</p></div>
+      <div class="card"><b>2. Scan it with your phone</b><p>Same Wi-Fi, the camera app. The chat opens with the pairing code in its address; add it to your Home Screen.</p></div>
+      <div class="card"><b>3. Ask from your phone</b><p>The Mac runs the model and streams the answer back, with tokens per second and "running on" your Mac above it.</p></div>
+    </div>
+  </section>
+
+  <section>
     <h2>What works</h2>
     <div class="grid">
-      <div class="card"><b>A model in a tab</b><p>WebLLM on WebGPU: SmolLM2, Qwen2.5, Qwen3, Llama 3.2, Gemma 2, Phi-3.5. Real download progress, then it runs on your GPU.</p></div>
-      <div class="card"><b>A real local endpoint</b><p>Connect Ollama on localhost: list, load and unload models, copy http://localhost:11434/v1 with curl, Python and JS snippets and a Test button.</p></div>
-      <div class="card"><b>Pull any model</b><p>Type any Ollama tag and watch it download with bytes, percent and cancel.</p></div>
-      <div class="card"><b>This machine as a node</b><p>Platform, GPU adapter, cores and ready engines, read live from your browser.</p></div>
-      <div class="card"><b>Speed on every answer</b><p>Tokens per second and time to first token under each reply.</p></div>
-      <div class="card"><b>Privacy meter</b><p>Network requests since the model loaded. It stays at 0 while you chat in tab mode.</p></div>
-      <div class="card"><b>Add a machine</b><p>Another computer running Ollama on your network becomes a second node; chats go to whichever you select.</p></div>
-      <div class="card"><b>First-run setup</b><p>Detects your machine, picks the engine and loads your first model.</p></div>
+      <div class="card"><b>The phone app</b><p>Served by the Mac. Streaming answers, a model picker with the Mac's Ollama models, Stop, light and dark, one-handed at 390 px, installable to the Home Screen.</p></div>
+      <div class="card"><b>A pairing code</b><p>In the QR code, checked on every request; nothing answers without it. <code>--new-token</code> unpairs every phone.</p></div>
+      <div class="card"><b>No dependencies</b><p>One small Node server, a QR encoder and a static app. Nothing goes through a server of ours.</p></div>
+      <div class="card"><b>The dashboard</b><p>Shows the command and whether a phone is paired. Also runs a small model in a tab on WebGPU, or connects Ollama for a local OpenAI-compatible endpoint.</p></div>
+      <div class="card"><b>Any OpenAI-compatible server</b><p>Ollama by default; <code>--ollama &lt;url&gt;</code> points it at LM Studio or llama.cpp instead.</p></div>
+      <div class="card"><b>Away from home</b><p>Put the Mac and the phone on Tailscale and open the Mac's Tailscale address. berth has no relay of its own.</p></div>
     </div>
   </section>
 
   <section>
     <h2>Not yet</h2>
     <ul class="gaps">
-      <li>No memory pooling: "add a machine" routes requests, it does not split one model across Macs.</li>
-      <li>No Thunderbolt or RDMA clustering.</li>
-      <li>No native app or menu-bar server. A tab can't open a port, so the in-tab engine has no HTTP endpoint; use Ollama for that.</li>
-      <li>Safari can't reach a local Ollama from an https page; use Chrome or Edge for the Ollama engine.</li>
+      <li>No memory pooling: one model can't be split across several Macs; each runs whole models.</li>
+      <li>No menu-bar app yet: it's a Terminal command. No relay besides Tailscale.</li>
+      <li>Many Android phones can't open <code>.local</code> names: run <code>berth serve --ip</code>.</li>
     </ul>
   </section>
 
   <section>
-    <h2>Run it yourself</h2>
+    <h2>Run it from a clone</h2>
     <pre>git clone https://github.com/VedSoni-dev/berth
-cd berth && npm install && npm run dev</pre>
-    <p style="color:var(--mute)">For the Ollama engine, allow berth once: <code>OLLAMA_ORIGINS="https://berth-delta.vercel.app" ollama serve</code>. Its page opens with Sign in with <a href="https://publikhq.com">publik</a> (the listing goes up the week of 2026-11-19).</p>
+cd berth && npm run serve      # the Mac server and phone app
+npm install && npm run dev     # the site and dashboard</pre>
+    <p style="color:var(--mute)">berth is coming to <a href="https://publikhq.com">publik</a>, a free software marketplace: the listing goes up after 19 November 2026. Until then the dashboard opens with no sign-in.</p>
   </section>
 
   <footer>
-    berth is a free, open-source alternative to Apple's unreleased local AI server (Claris Harbor), written from public information. Not affiliated with Apple or Claris.
+    berth is an independent, clean-room open-source project, not affiliated with or endorsed by Apple.
     Built start to finish by <a href="https://x.com/forkthis_ai">@forkthis_ai</a>, an AI that open-sources apps. Tag it under any launch.
   </footer>
 </div>

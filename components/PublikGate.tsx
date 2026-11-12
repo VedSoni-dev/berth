@@ -15,6 +15,8 @@ type Poll = { until: number; done: (s: GateStatus) => boolean; timeout: NoteKey 
 export interface PublikState {
   /** true once the gate let the person in. */
   ready: boolean;
+  /** true while the publik listing is pending: open without sign-in, own key only. */
+  pending?: boolean;
   /** "publik": AI goes through publik API; "own_key": the person's own key, exactly as before; null: the app uses no AI. */
   choice: Choice | null;
   usesAi: boolean;
@@ -165,6 +167,20 @@ export function PublikGate({ appName, children }: { appName?: string; children: 
   );
 
   if (status?.state === "ready" && !down) return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
+  // Listing on the way (publik's weekly limit): open to everyone, AI on the person's own key, one quiet line about publik.
+  if (status?.state === "pending" && !down) {
+    const until = status.until && /^\d{4}-\d{2}-\d{2}/.test(status.until) ? new Date(`${status.until.slice(0, 10)}T12:00:00`).toLocaleDateString(undefined, { month: "short", day: "numeric" }) : null;
+    return (
+      <Ctx.Provider value={{ ready: true, choice: status.usesAi ? "own_key" : null, usesAi: status.usesAi, handle: null, setChoice: async () => {}, pending: true }}>
+        <style href="publik-gate" precedence="default">{CSS}</style>
+        <div className="pk-pending" role="note">
+          <span>{appName ?? "This app"} is open while its publik listing is on the way{until ? ` (${until})` : ""}. No sign-in needed{status.usesAi ? "; AI runs on your own key for now" : ""}.</span>
+          <a href="https://publikhq.com" target="_blank" rel="noopener noreferrer">Make a free publik account →</a>
+        </div>
+        {children}
+      </Ctx.Provider>
+    );
+  }
   const shown = down ? SERVER_DOWN : status && "screen" in status ? status : null;
   const noteText = note ? last.current?.notes[note] ?? null : shown?.screen.note ?? null;
   return (
@@ -225,9 +241,9 @@ export function PublikPitch({ appName = "this app", className = "pk-pitch" }: { 
 
 /** The setting that changes the stored choice (setChoice). Renders nothing when the app uses no AI. */
 export function PublikChoice() {
-  const { ready, usesAi, choice, handle, setChoice } = usePublik();
+  const { ready, usesAi, choice, handle, setChoice, pending } = usePublik();
   const [busy, setBusy] = useState(false);
-  if (!ready || !usesAi) return null;
+  if (!ready || !usesAi || pending) return null;
   const pick = async (c: Choice | null) => {
     setBusy(true);
     try { await setChoice(c); } catch { /* unchanged */ } finally { setBusy(false); }
@@ -252,6 +268,8 @@ export function PublikChoice() {
 }
 
 const CSS = `
+.pk-pending{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;justify-content:center;padding:8px 16px;font:13px/1.4 system-ui,-apple-system,sans-serif;background:color-mix(in srgb,currentColor 6%,transparent);border-bottom:1px solid color-mix(in srgb,currentColor 12%,transparent)}
+.pk-pending a{color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .pk-gate,.pk-choice{--pk-bg:var(--publik-bg,#f6f5f1);--pk-card:var(--publik-card,#fff);--pk-ink:var(--publik-ink,#1c1b19);--pk-muted:var(--publik-muted,#6b6862);--pk-line:var(--publik-line,#e3e0d8);--pk-accent:var(--publik-accent,#1c1b19);--pk-accent-ink:var(--publik-accent-ink,#fff);--pk-hover:var(--publik-hover,rgba(0,0,0,.05))}
 @media (prefers-color-scheme:dark){.pk-gate,.pk-choice{--pk-bg:var(--publik-bg,#121211);--pk-card:var(--publik-card,#1c1c1a);--pk-ink:var(--publik-ink,#f2f0ea);--pk-muted:var(--publik-muted,#a19d94);--pk-line:var(--publik-line,#33322e);--pk-accent:var(--publik-accent,#f2f0ea);--pk-accent-ink:var(--publik-accent-ink,#121211);--pk-hover:var(--publik-hover,rgba(255,255,255,.06))}}
 .pk-gate{box-sizing:border-box;min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px 16px;background:var(--pk-bg);color:var(--pk-ink)}

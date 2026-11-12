@@ -7,9 +7,9 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", displ
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://berth-delta.vercel.app"),
-  title: "berth: a private AI server on your own machine",
+  title: "berth: your phone chats with the AI models on your Mac",
   description:
-    "Run an open-weight model on your own machine from a browser tab, or get a local OpenAI-compatible endpoint through Ollama. Tokens/sec on every answer. Free and open source.",
+    "Run one command on your Mac and chat from your phone with the open-weight models Ollama runs there, over your Wi-Fi. Plus a dashboard that runs models in a tab. Free and open source.",
   icons: { icon: "/icon.svg" },
 };
 
