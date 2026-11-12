@@ -1,0 +1,1 @@
+berth: a private AI server on your own machine. Pick an open-weight model, press play, chat with it on your GPU.

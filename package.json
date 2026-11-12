@@ -1,0 +1,26 @@
+{
+  "name": "berth",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Run an open-weight model on your own machine from a browser tab, or get a local OpenAI-compatible endpoint through Ollama. A free, open-source alternative to Apple's unreleased local AI server.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@mlc-ai/web-llm": "0.2.88",
+    "next": "16.4.6",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.5",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.5",
+    "typescript": "5.9.3"
+  }
+}
