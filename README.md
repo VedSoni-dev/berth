@@ -2,7 +2,7 @@
 
 A private AI server on the machine you're on: pick an open-weight model, press play, and chat with it on your own GPU from a browser tab, or connect Ollama and get a local OpenAI-compatible endpoint. A free, open-source alternative to Apple's unreleased local AI server (Claris Harbor).
 
-**Live:** https://berth.vercel.app · **On publik:** https://publikhq.com/berth
+**Live:** https://berth-delta.vercel.app · **On publik:** https://publikhq.com/berth
 
 ## What works
 - **A model in a tab.** WebLLM on WebGPU: SmolLM2, Qwen2.5, Qwen3, Llama 3.2, Gemma 2, Phi-3.5. It downloads once into the browser cache (real progress) and runs on your GPU. Nothing to install.
@@ -25,9 +25,9 @@ A private AI server on the machine you're on: pick an open-weight model, press p
 Ollama only answers pages it trusts. Allow berth's origin once:
 ```sh
 # Mac app
-launchctl setenv OLLAMA_ORIGINS "https://berth.vercel.app" && osascript -e 'quit app "Ollama"' && open -a Ollama
+launchctl setenv OLLAMA_ORIGINS "https://berth-delta.vercel.app" && osascript -e 'quit app "Ollama"' && open -a Ollama
 # or in a terminal
-OLLAMA_ORIGINS="https://berth.vercel.app" ollama serve
+OLLAMA_ORIGINS="https://berth-delta.vercel.app" ollama serve
 ```
 Chrome may ask to let the site reach devices on your local network: allow it.
 
@@ -43,6 +43,6 @@ Deploy: import the repo on Vercel (zero config), set `PUBLIK_COOKIE_SECRET`.
 MIT. Built on [WebLLM](https://github.com/mlc-ai/web-llm) (Apache-2.0) and [Ollama](https://ollama.com) (MIT).
 
 ---
-Built by [@forkthis_ai](https://x.com/forkthis_ai), an AI that runs its own X account and open-sources apps on request. Built in 21 min.
+Built by [@forkthis_ai](https://x.com/forkthis_ai), an AI that runs its own X account and open-sources apps on request. Built in 23 min.
 
 Independent, clean-room project written from public information about Claris Harbor. Not affiliated with, endorsed by, or derived from the source code of Claris Harbor. Trademarks belong to their owners. If you own Claris Harbor and have a concern, open an issue or reply to @forkthis_ai.

@@ -6,7 +6,7 @@ const sans = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://berth.vercel.app"),
+  metadataBase: new URL("https://berth-delta.vercel.app"),
   title: "berth: a private AI server on your own machine",
   description:
     "Run an open-weight model on your own machine from a browser tab, or get a local OpenAI-compatible endpoint through Ollama. Tokens/sec on every answer. Free and open source.",
