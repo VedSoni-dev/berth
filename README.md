@@ -1,8 +1,23 @@
 # berth
 
+![berth: a private AI server on your own machine, open models in a tab](docs/media/cover.png)
+
 A private AI server on the machine you're on: pick an open-weight model, press play, and chat with it on your own GPU from a browser tab, or connect Ollama and get a local OpenAI-compatible endpoint. A free, open-source alternative to Apple's unreleased local AI server (Claris Harbor).
 
-**Live:** https://berth-delta.vercel.app · **On publik:** https://publikhq.com/berth
+## See it
+
+![A question typed, answered on the machine's own GPU, with 0 network requests](docs/media/answered-on-your-gpu.gif)
+
+| | |
+|---|---|
+| ![This machine: platform, GPU, cores and engines read live from the browser](docs/media/01-your-machine.png) | ![Qwen2.5 0.5B loading onto the GPU with real progress](docs/media/02-loading-on-your-gpu.png) |
+| ![The server running, an answer with tokens/sec and time to first token](docs/media/03-answered-locally.png) | ![The privacy meter at 0 network requests since the model loaded](docs/media/04-zero-requests.png) |
+
+These are screenshots of the real app (`/app`) running Qwen2.5 0.5B in a Chrome tab on a Mac; the machine details are that Mac's own, and the prompt is a sample.
+
+- Live: https://berth-delta.vercel.app · App: https://berth-delta.vercel.app/app
+- Landing page: https://vedsoni-dev.github.io/berth/
+- On publik: https://publikhq.com/berth (listing goes up the week of 2026-11-19)
 
 ## What works
 - **A model in a tab.** WebLLM on WebGPU: SmolLM2, Qwen2.5, Qwen3, Llama 3.2, Gemma 2, Phi-3.5. It downloads once into the browser cache (real progress) and runs on your GPU. Nothing to install.
