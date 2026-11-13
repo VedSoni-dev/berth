@@ -238,7 +238,6 @@ export function Landing() {
                 <h2 id="questions-h">Questions</h2>
                 <p className="t-lead muted">What berth needs, what it can&apos;t do yet, and why it costs nothing.</p>
                 <PublikPitch appName="berth" className="lp-pitch" />
-                <p className="lp-soon">berth is coming to publik: its listing goes up after 19 November 2026. Until then the dashboard opens with no sign-in.</p>
               </div>
               <div className="faq span-6 start-7">
                 <div className="faq__item">
